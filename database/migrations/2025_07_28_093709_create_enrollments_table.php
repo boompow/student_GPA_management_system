@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('semester_id')->constrained()->onDelete('cascade');
             $table->unsignedTinyInteger('score')->nullable();
             $table->string('grade')->nullable();
-            $table->float('gpa', 3, 2)->nullable();
+            $table->float('grade_point', 3, 2)->nullable();
             $table->timestamps();
             $table->unique(['student_id', 'course_id', 'semester_id']);
         });

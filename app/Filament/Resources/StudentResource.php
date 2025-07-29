@@ -29,12 +29,15 @@ class StudentResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    
     public static function form(Form $form): Form
     {
+        // $enrollment = Enrollment::where('student_id', )
         return $form
             ->schema([
-                TextInput::make('name')->required()->maxLength(255),
-                TextInput::make('email')->required()->email()->maxLength(255)
+                TextInput::make('name')
+                ->required()->maxLength(255),
+                TextInput::make('email')->required()->email()->maxLength(255),
             ]);
     }
 
@@ -42,19 +45,16 @@ class StudentResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
+                TextColumn::make('name')->sortable(),
                 TextColumn::make('email'),
+                TextColumn::make('cumulative_gpa')->label('Cumulative GPA')->sortable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make()
-                ->url(fn ($record) => route('filament.admin.resources.students.view', ['record' => $record]))
-                ->label('View')
-                ->icon('heroicon-o-eye'),
-
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -78,5 +78,11 @@ class StudentResource extends Resource
             'edit' => Pages\EditStudent::route('/{record}/edit'),
             'view' => Pages\ViewStudent::route('/{record}/view'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->with(['semester']);
     }
 }

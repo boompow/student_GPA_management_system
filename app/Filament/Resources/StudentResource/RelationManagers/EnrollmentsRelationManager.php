@@ -59,12 +59,13 @@ class EnrollmentsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('GPA')
+            ->recordTitleAttribute('Grade')
             ->columns([
                 TextColumn::make('semester.name')->label("Semester"),
+                TextColumn::make('semester.semester_gpa')->label("Semester GPA"),
                 TextColumn::make('course.name')->label("Course"),
                 TextColumn::make('score')->label("Score"),
-                TextColumn::make('gpa')->label("GPA"),
+                TextColumn::make('grade_point')->label("Grade Point"),
                 TextColumn::make('grade')->label("Grade"),
             ])
             ->filters([
