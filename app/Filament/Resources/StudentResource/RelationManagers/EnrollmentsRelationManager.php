@@ -9,11 +9,13 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Validation\Rule;
 
 // form fields
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\DatePicker;
+
 
 // table columns
 use Filament\Tables\Columns\TextColumn;
@@ -35,7 +37,7 @@ class EnrollmentsRelationManager extends RelationManager
                     TextInput::make('name')->required()->maxLength(255),
                     TextInput::make('credit_hour')->required()->numeric(),
                 ]),
-
+                
                 Select::make('semester_id')
                 ->relationship('semester', 'name')
                 ->searchable()

@@ -75,12 +75,12 @@ class Enrollment extends Model
 
         //updating the GPA with change in enrollment
         static::saved(function ($enrollment) {
-            $enrollment->semester->semester_GPA();
+            $enrollment->semester->semester_GPA($enrollment->student_id);
             $enrollment->student->cumulative_GPA();
         });
 
         static::deleted(function ($enrollment) {
-            $enrollment->semester->semester_GPA();
+            $enrollment->semester->semester_GPA($enrollment->student_id);
             $enrollment->student->cumulative_GPA();
         });
     }

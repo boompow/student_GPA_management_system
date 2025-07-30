@@ -42,7 +42,6 @@ class SemesterResource extends Resource
                 TextColumn::make('name'),
                 TextColumn::make('start_date'),
                 TextColumn::make('end_date'),
-                TextColumn::make('gpa')->label('Semester GPA')
             ])
             ->filters([
                 //

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Enrollment;
 use App\Models\Student;
 use App\Models\Course;
+use GuzzleHttp\Psr7\Request;
 
 class Semester extends Model
 {
@@ -31,13 +32,13 @@ class Semester extends Model
     }
 
     // calculate the semester GPA
-    public function semester_GPA(): void{
+    public function semester_GPA(int $studentId): void{
         $total_credit_hour = 0;
         $total_grade_point = 0;
 
-        foreach ($this->enrollment as $enrollement) {
-            dump($enrollement);
-            dump("id $enrollement->course_id");
+        $enrollments = $this->enrollment()->where('student_id', $studentId)->get();
+
+        foreach ( $enrollments as $enrollement) {
             $course = Course::find($enrollement->course_id);
             if(!$course){
                 continue;
@@ -48,12 +49,6 @@ class Semester extends Model
 
             $total_credit_hour += $credit;
             $total_grade_point += $grade_point * $credit;
-
-            dump("credit $credit");
-            dump("grade point $grade_point");
-            dump("total credit $total_credit_hour");
-            dump("total grade $total_grade_point");
-            dump(round($total_grade_point / $total_credit_hour, 2));
         }
 
         $this->semester_gpa = $total_credit_hour > 0 ? round($total_grade_point / $total_credit_hour, 2) : 0.0;
