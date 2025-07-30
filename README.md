@@ -10,7 +10,7 @@ This is another Kuraz-Tech mini-project for backend track. It is a web-based app
 - **GPA Calculation:** Automatically compute student GPAs based on enrolled courses and grades.
 - **User Authentication:** Secure login and role-based access for administrators.
 
-![Screenshot](public/screenshots/1.PNG)
+![Screenshot](public/screenshots/7.PNG)
 ![Screenshot](public/screenshots/2.PNG)
 ![Screenshot](public/screenshots/3.PNG)
 ![Screenshot](public/screenshots/4.PNG)
